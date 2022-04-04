@@ -1,0 +1,90 @@
+<!--
+ - Created by Jeremy on 8/17/2020.
+ -->
+
+<aura:component description="trac_BulkEditDPL" controller="trac_BulkEditDPLCtlr" extends="c:trac_BaseComponent" implements="flexipage:availableForAllPageTypes">
+
+    <!-- attributes -->
+    <aura:attribute name="searchFields" type="Object"/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="errors" type="Object" default="[]"/>
+    <aura:attribute name="draftValues" type="List" default="[]"/>
+    <aura:attribute name="selectedOption" type="String" default="Amount"/>
+    <aura:attribute name="amountChange" type="Decimal" default="0.00"/>
+    <aura:attribute name="percentChange" type="Decimal" default="0.00"/>
+    <aura:attribute name="options" type="List" default="[
+        {'label': 'Amount', 'value': 'Amount'},
+        {'label': 'Percent', 'value': 'Percent'}
+        ]"/>
+
+    <!-- handlers-->
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+    <div><h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate slds-p-left_medium slds-p-top_large slds-p-bottom_small">Step 1 - Search DPLs</h1></div>
+    <div>
+        <lightning:recordEditForm objectApiName="Base_Price__c" onsubmit="{! c.handleSubmit }">
+            <lightning:messages />
+            <div class="slds-grid slds-p-left_large">
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Product__c" />
+                </div>
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Product_Name__c" />
+                </div>
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Supplier__c" />
+                </div>
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Product_Profile__c" />
+                </div>
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Company_Picklist__c" />
+                </div>
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Branch_lookup__c" />
+                </div>
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Expiry_Date__c" />
+                </div>
+            </div>
+            <div class="slds-p-left_large slds-m-top_medium">
+                <lightning:button variant="brand" type="submit" name="search" label="Search" />
+            </div>
+        </lightning:recordEditForm>
+    </div>
+    <div><h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate slds-p-left_medium slds-p-top_xx-large slds-p-bottom_small">Step 2 - Review and update DPLs</h1></div>
+    <div>
+        <div class="slds-grid slds-m-left_large slds-m-bottom_small slds-box slds-box_x-small slds-size_1-of-2">
+            <div class="slds-col slds-size--1-of-3 slds-form-element slds-form-element_stacked">
+                <lightning:combobox name="option" label="Pricing Update Type" value="{! v.selectedOption }" placeholder="Select Update Type" options="{! v.options }"/>
+            </div>
+            <aura:if isTrue="{!v.selectedOption == 'Amount'}">
+                <div class="slds-col slds-size--1-of-3 slds-form-element slds-form-element_stacked">
+                    <lightning:input type="number" name="amountChange" label="Pricing Amount Change" value="{! v.amountChange }"
+                                     formatter="currency" step="0.01"/>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.selectedOption == 'Percent'}">
+                <div class="slds-col slds-size--1-of-3 slds-form-element slds-form-element_stacked">
+                    <lightning:input type="number" name="percentChange" label="Pricing Percent Change"
+                                     value="{! v.percentChange }" formatter="percent-fixed" step="0.01"/>
+                </div>
+            </aura:if>
+            <div class="slds-col">
+                <lightning:button class="slds-m-top_large" variant="brand" label="Adjust Pricing" onclick="{! c.handleUpdate }" />
+            </div>
+        </div>
+    </div>
+    <div>
+        <lightning:datatable
+                columns="{! v.columns }"
+                data="{! v.data }"
+                keyField="Id"
+                errors="{! v.errors }"
+                draftValues="{! v.draftValues }"
+                onsave="{! c.handleSave }"
+        />
+    </div>
+
+</aura:component>

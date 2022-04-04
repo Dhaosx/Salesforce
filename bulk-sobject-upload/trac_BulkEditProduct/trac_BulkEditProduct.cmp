@@ -1,0 +1,98 @@
+<!--
+ - Created by ssalvatore on 11/12/2020.
+ -->
+<aura:component description="trac_BulkEditProduct" controller="trac_BulkEditProductCtlr" extends="c:trac_BaseComponent"
+                implements="flexipage:availableForAllPageTypes">
+
+    <!-- attributes -->
+    <aura:attribute name="searchFields" type="Object"/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="errors" type="Object" default="[]"/>
+    <aura:attribute name="draftValues" type="List" default="[]"/>
+    <aura:attribute name="maxRowSelection" type="Integer" default=""/>
+    <aura:attribute name="toBeSaved" type="List" default="[]"/>
+    <aura:attribute name="selectedOption" type="String" default="Product Specialist"/>
+    <aura:attribute name="selectedUser" type="String" />
+    <aura:attribute name="selectedRows" type="List" />
+    <aura:attribute name="options" type="List" default="[
+        {'label': 'Product Specialist', 'value': 'Product Specialist'},
+        {'label': 'Product Manager', 'value': 'Product Manager'}
+        ]"/>
+
+    <!-- handlers-->
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+
+    <div>
+        <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate slds-p-left_medium slds-p-top_large slds-p-bottom_small">
+            Step 1 - Search Products</h1></div>
+    <div>
+        <lightning:recordEditForm objectApiName="Product2" aura:id="filterForm" >
+            <lightning:messages/>
+            <div class="slds-grid slds-p-left_large" aura:id="inputDiv">
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Product_Codes_Name__c"/>
+                </div>
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Commodity_Code2__c"/>
+                </div>
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Commodity_Family2__c"/>
+                </div>
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Product__c"/>
+                </div>
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Product_Coordinator__c"/>
+                </div>
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Product_Manager__c"/>
+                </div>
+                <div class="slds-col">
+                    <lightning:inputField fieldName="Supplier_Name__c"/>
+                </div>
+            </div>
+            <div class="slds-p-left_large slds-m-top_medium">
+                <lightning:button variant="brand" type="button" name="search" label="Search" onclick="{! c.handleSubmit }"/>
+            </div>
+        </lightning:recordEditForm>
+    </div>
+    <div>
+        <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate slds-p-left_medium slds-p-top_xx-large slds-p-bottom_small">
+            Step 2 - Review and update Product Profile</h1></div>
+    <div>
+        <div class="slds-grid slds-m-left_large slds-m-bottom_small slds-box slds-box_x-small slds-size_1-of-2">
+            <div class="slds-col slds-size--1-of-3 slds-form-element slds-form-element_stacked">
+                <lightning:combobox name="option" label="Pricing Update Type" value="{! v.selectedOption }"
+                                    placeholder="Select Update Type" options="{! v.options }"/>
+            </div>
+            <div class="slds-col slds-size--1-of-3 slds-form-element slds-form-element_stacked">
+                <c:trac_LookupCmp objectAPIName="User" IconName="standard:user" label="User" selectedRecord="{!v.selectedUser}"/>
+            </div>
+            <div class="slds-col">
+                <lightning:button class="slds-m-top_large" variant="brand" label="Update User"
+                                  onclick="{! c.handleUpdate }"/>
+            </div>
+        </div>
+    </div>
+    <div class="slds-p-bottom_xx-medium slds-text-title_bold slds-p-left_medium
+">
+        We cannot update more than {!v.maxRowSelection} records at a time. At present  {!v.selectedRows.length} are selected.
+    </div>
+    <div>
+        <lightning:datatable
+                columns="{! v.columns }"
+                data="{! v.data }"
+                keyField="Id"
+                errors="{! v.errors }"
+                draftValues="{! v.draftValues }"
+                onsave="{! c.handleSave }"
+                oncancel="{! c.handleCancel }"
+                hideCheckboxColumn="false"
+                onrowselection="{!c.handleSelect}"
+                maxRowSelection="{!v.maxRowSelection}"
+        />
+    </div>
+
+</aura:component>

@@ -1,0 +1,67 @@
+<!--
+ - Created by Jeremy on 8/24/2020.
+ -->
+
+<aura:component description="trac_BulkDPLUpload" controller="trac_BulkDPLUploadCtlr" extends="c:trac_BaseComponent"
+                implements="flexipage:availableForAllPageTypes">
+    <!-- attributes -->
+    <aura:attribute name="inputValue" type="String"/>
+    <aura:attribute name="data" type="Object" default=""/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="disableButton" type="Boolean" default="false"/>
+    <aura:attribute name="errors" type="Object" default="[]"/>
+    <aura:attribute name="externalLinks" type="Object"/>
+    <!-- handlers-->
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+    <div>
+        <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate slds-p-left_medium slds-p-top_large slds-p-bottom_small">
+            Step 1 - Fill the Excel template</h1></div>
+    <div class="slds-m-left_large slds-m-bottom_large">
+        Fill the <a href="{!v.externalLinks.Import_DPLs_Template__c}">Excel template</a> with all the new DPLs you want
+        to import.
+        <br/>
+        <br/>
+        🛈 When uploding your DPLs, please insure the dates are in this format yyyy-mm-dd, example 2020-01-31. <br/>
+        If you need help, please look at <a href="{!v.externalLinks.Import_DPLs_Documentation__c}">the
+            documentation.  </a>.
+    </div>
+
+
+    <div>
+        <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate slds-p-left_medium slds-p-top_large slds-p-bottom_small">
+            Step 2 - Paste and load the new DPLs</h1></div>
+
+    <div class="slds-m-left_large">
+        <lightning:textarea label="New DPL Values" placeholder="Copy paste Excel data here..." value="{!v.inputValue}"/>
+
+        <lightning:button variant="brand" label="Load" onclick="{!c.handleLoad}"/>
+    </div>
+    <div>
+        <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate slds-p-left_medium slds-p-top_xx-large slds-p-bottom_small">
+            Step 3 - Review the new DPLs and save</h1></div>
+
+    <aura:if isTrue="{!v.data != ''}">
+        <div class="slds-m-left_large slds-m-bottom_large">
+
+            <lightning:button variant="brand" label="Save" onclick="{!c.handleSave}" disabled="{!v.disableButton}"/>
+
+        </div>
+        <div>
+            <lightning:datatable
+                    aura:id="dplTable"
+                    columns="{!v.columns}"
+                    data="{!v.data}"
+                    keyField="RowId"
+                    errors="{!v.errors}"
+                    onsave="{!c.handleSave}"
+                    showRowNumberColumn="true"
+            />
+        </div>
+        <aura:set attribute="else">
+            <div class="slds-m-left_large slds-m-bottom_large">
+                The new DPLs will appear here when loaded.
+            </div>
+        </aura:set>
+    </aura:if>
+</aura:component>
