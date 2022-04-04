@@ -1,0 +1,15 @@
+<!--
+ - Created by SimonSalvatore on 2022-03-17.
+ -->
+
+<!-- Custom Label Modifier -->
+<template>
+    <lightning-datatable
+            data={records}
+            columns={fieldColumns}
+            key-field="Id"
+            draft-values={draftValues}
+            hide-checkbox-column="true"
+            onsave={handleSave}>
+    </lightning-datatable>
+</template>
