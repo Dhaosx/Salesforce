@@ -1,0 +1,8 @@
+.THIS .pill--unselected .slds-pill__label{
+    color: #0070d2;
+    cursor: select;
+}
+
+.THIS .pill--selected .slds-pill__label{
+    cursor: default;
+}

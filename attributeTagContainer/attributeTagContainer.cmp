@@ -1,0 +1,46 @@
+<aura:component >
+    <aura:attribute name="availableItems" type="List"/>
+    <aura:attribute name="selectedItems" type="List"/>
+    <aura:attribute name="isAvailableListVisible" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="hasErrors" type="Boolean"/>
+
+
+    <c:tlPlatformEventHandler channel="Attribute_Validation_Error__e" />
+    <aura:handler name="sendData" event="c:tlPlatformEventDataSend" action="{!c.handleEvent}"/>
+
+    <div class="{!join(' ', 'slds-pill_container',
+                       v.hasErrors ? 'has-error' : '')}">
+        <span class="slds-p-around--x-small">
+            <lightning:buttonIcon iconName="{!v.isAvailableListVisible ? 'utility:chevrondown' : 'utility:chevronright'}" onclick="{!c.toggleAvailableAttributesVisibility}" variant="bare" alternativeText="{!v.isAvailableListVisible ? 'Hide Available Tags' : 'Show Available Tags'}"/>
+
+        </span>
+
+        <div class="slds-listbox_horizontal slds-p-right_x-small">
+            Attribute Assignments
+        </div>
+
+
+        <aura:if isTrue="{!(empty(v.selectedItems))}">
+        </aura:if>
+        <aura:iteration items="{!v.selectedItems}" var="item">
+           <c:attributeTag item="{!item}" isSelected="true"/>
+        </aura:iteration>
+    </div>
+
+    <div aura:id="available-attributes" class="slds-box slds-box--x-small slds-theme--shade slds-m-top--xx-small slds-hide">
+        <aura:iteration items="{!v.availableItems}" var="category">
+            <div class="slds-text-heading--label-normal">{!category.name}</div>
+            <div aura:id="attributeLabel" data-type="{!category.name}" class="slds-text-heading--label-normal slds-text-color_error"></div>
+
+            <div class="slds-pill_container slds-theme--default slds-m-around--x-small">
+                <div class="slds-listbox_horizontal">
+                <aura:iteration items="{!category.attributes}" var="item">
+                    <c:attributeTag item="{!item}" isSelected="false"/>
+                </aura:iteration>
+                    </div>
+            </div>
+        </aura:iteration>
+    </div>
+
+</aura:component>
