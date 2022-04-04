@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event that fires when an attribute is selected">
+    <aura:attribute name="item" type="SObject" required="true"/>
+    <aura:attribute name="isSelected" type="Boolean" required="true"/>
+</aura:event>

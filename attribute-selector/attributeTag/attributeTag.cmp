@@ -1,0 +1,12 @@
+<aura:component >
+    <aura:attribute name="item" type="SObject" required="true"/>
+    <aura:attribute name="isSelected" type="Boolean" default="false"/>
+    
+    <aura:registerEvent name="attributeSelected" type="c:attributeSelected"/>
+
+    <span class="slds-pill">
+        <a class="slds-pill__label" title="{!(v.item.Attribute__c ? v.item.Attribute__r.Category__c : null)}" onclick="{!c.selectPressed}">{!v.item.Attribute__c}</a>
+        <lightning:buttonIcon iconName="{!v.isSelected ? 'utility:close' : 'utility:add'}" class="slds-pill__remove" alternativeText="{!v.isSelected ? 'Remove' : 'Add'}" variant="bare" onclick="{!c.selectPressed}" disabled="{!empty(v.item.Id)}"/>
+    </span>
+
+</aura:component>

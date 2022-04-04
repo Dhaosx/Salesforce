@@ -1,0 +1,9 @@
+<!--
+ - 
+ - @author Grant Adamson, Traction on Demand
+ - @date 2017-04-27
+ -->
+
+<aura:event type="APPLICATION" description="attributesChanged">
+    <aura:attribute name="ids" type="Id[]" required="true"/>
+</aura:event>
