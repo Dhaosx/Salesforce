@@ -1,0 +1,548 @@
+<!--
+ - Created by SimonSalvatore on 2021-10-08.
+ -->
+
+<aura:component description="trac_Guessing"
+                implements="force:hasRecordId,flexipage:availableForAllPageTypes,force:appHostable,lightning:isUrlAddressable,lightning:hasPageReference"
+                access="global"
+                controller="trac_GuessingController">
+    <aura:attribute name="allData" type="List"/>
+    <aura:attribute name="filteredData" type="List"/>
+    <aura:attribute name="tableData" type="List"/>
+    <aura:attribute name="columns" type="Object[]"/>
+    <aura:attribute name="pageSize" type="Integer" default="15"/>
+    <aura:attribute name="pageSizeOptions" type="Integer[]" default="10,15,20,25,50,100"/>
+    <aura:attribute name="currentPageNumber" type="Integer" default="1"/>
+    <aura:attribute name="totalPages" type="Integer" default="1"/>
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    <aura:attribute name="tractionites" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <div aria-labelledby="Traction Guessing Game Form" class="slds-size_1-of-4 slds-align_absolute-center">
+        <lightning:card title="Traction Guessing Game">
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Melissa}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Melissa}"
+                        header="Melissa Romera">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[26].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[26].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[26].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[26].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Abishek}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Abishek}"
+                        header="Abhishek Verma">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[0].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[0].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[0].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[0].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Ezra}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Ezra}"
+                        header="Ezra Hall">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[10].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[10].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[10].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[10].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Kelly}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Kelly}"
+                        header="Kelly Crowley">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[18].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[18].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[18].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[18].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Philippe}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Philippe}"
+                        header="Philippe Bilodeau">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[29].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[29].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[29].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[29].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Lynne}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Lynne}"
+                        header="Lynne Robichaud">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[21].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[21].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[21].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[21].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Alex}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Alex}"
+                        header="Alex Kong">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[4].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[4].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[4].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[4].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Jon}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Jon}"
+                        header="Jon Symes">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[13].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[13].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[13].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[13].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Vinamra}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Vinamra}"
+                        header="Vinamra Rao">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[33].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[33].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[33].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[33].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_ChrisKarp}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.ChrisKarp}"
+                        header="Christopher Karpyszyn">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[7].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[7].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[7].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[7].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_AdamL}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.AdamL}"
+                        header="Adam Lowe">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[2].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[2].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[2].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[2].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Karly}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Karly}"
+                        header="Karly El-Jalkh">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[16].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[16].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[16].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[16].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Matthew}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Matthew}"
+                        header="Matthew Schaefer">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[24].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[24].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[24].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[24].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Amin}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Amin}"
+                        header="Amin Bouabdellah">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[5].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[5].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[5].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[5].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Surabhi}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Surabhi}"
+                        header="Surabhi Sharma">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[31].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[31].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[31].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[31].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Devang}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Devang}"
+                        header="Devang Choudhary">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[8].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[8].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[8].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[8].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Kishan}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Kishan}"
+                        header="Kishan Patel">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[19].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[19].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[19].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[19].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Jody}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Jody}"
+                        header="Jody LeBlanc">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[12].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[12].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[12].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[12].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Mercedes}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Mercedes}"
+                        header="Mercedes Peralta">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[27].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[27].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[27].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[27].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Vlad}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Vlad}"
+                        header="Vladimir Magda">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[34].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[34].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[34].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[34].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Josh}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Josh}"
+                        header="Josh Rose">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[14].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[14].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[14].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[14].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Emilie}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Emilie}"
+                        header="Emilie Scott">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[9].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[9].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[9].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[9].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Martin}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Martin}"
+                        header="Martin Duguay">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[23].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[23].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[23].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[23].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_ChrisKellie}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.ChrisKellie}"
+                        header="Chris Kellie">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[6].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[6].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[6].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[6].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Adam}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Adam}"
+                        header="Adam Gold">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[1].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[1].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[1].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[1].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Maggie}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Maggie}"
+                        header="Maggie Lin">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[22].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[22].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[22].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[22].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Jennifer}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Jennifer}"
+                        header="Jennifer Hull">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[11].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[11].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[11].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[11].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Aditya}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Aditya}"
+                        header="Aditya Vasili">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[3].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[3].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[3].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[3].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Tim}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Tim}"
+                        header="Timothy Shaw">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[32].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[32].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[32].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[32].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Simon}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Simon}"
+                        header="Simon Salvatore">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[30].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[30].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[30].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[30].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Justino}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Justino}"
+                        header="Justino Donovan">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[15].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[15].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[15].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[15].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Nigel}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Nigel}"
+                        header="Nigel Rodrigues">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[28].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[28].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[28].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[28].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Longxun}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Longxun}"
+                        header="Longxun Jin">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[20].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[20].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[20].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[20].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Katrina}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Katrina}"
+                        header="Katrina Bollozos">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[17].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[17].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[17].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[17].PetPeeve__c}</span>
+
+            <img src="{!$Resource.Who}" />
+            <lightning:carousel disableAutoRefresh="false" disableAutoScroll="true">
+                <lightning:carouselImage
+                        src="{!$Resource.Silhouette_Maxim}">
+                </lightning:carouselImage>
+                <lightning:carouselImage
+                        src="{!$Resource.Maxim}"
+                        header="Maxim Soukharev">
+                </lightning:carouselImage>
+            </lightning:carousel>
+            <span><strong>Fun Fact: </strong>{!v.tractionites[25].FunFact__c}</span><br/>
+            <span><strong>Favorite Food: </strong>{!v.tractionites[25].FavoriteFood__c}</span><br/>
+            <span><strong>Favorite Color: </strong>{!v.tractionites[25].FavoriteColor__c}</span><br/>
+            <span><strong>Pet Peeve: </strong>{!v.tractionites[25].PetPeeve__c}</span>
+        </lightning:card>
+    </div>
+</aura:component>

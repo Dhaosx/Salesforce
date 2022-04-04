@@ -1,0 +1,133 @@
+<!--
+ - Created by SimonSalvatore on 2021-08-30.
+ -->
+
+<aura:component
+        implements="force:hasRecordId,flexipage:availableForAllPageTypes,force:appHostable,lightning:isUrlAddressable,lightning:hasPageReference"
+        access="global">
+    <aura:attribute type="String" name="firstText"/>
+    <aura:attribute type="String" name="secondText"/>
+    <aura:attribute type="String" name="thirdText"/>
+    <aura:attribute type="String" name="fourthText"/>
+    <aura:attribute type="String" name="fifthText"/>
+    <aura:attribute type="String" name="sixthText"/>
+    <aura:attribute type="String" name="seventhText"/>
+    <aura:attribute type="String" name="eighthText"/>
+    <aura:attribute type="String" name="ninthText"/>
+    <aura:attribute type="String" name="tenthText"/>
+    <aura:attribute type="String" name="categoryHeader"
+                    default="Name a reason you might get rid of an old family heirloom."/>
+    <aura:attribute type="String" name="category" default="1"/>
+    <aura:attribute name="options" type="List" default="[
+    {'label': 'Category 1', 'value': '1'},
+    {'label': 'Category 2', 'value': '2'},
+    {'label': 'Category 3', 'value': '3'},
+    {'label': 'Category 4', 'value': '4'},
+    {'label': 'Category 5', 'value': '5'},
+    {'label': 'Category 6', 'value': '6'},
+    {'label': 'Category 7', 'value': '7'},
+	{'label': 'Category 8', 'value': '8'},
+    {'label': 'Category 9', 'value': '9'}, 
+    {'label': 'Category 10', 'value': '10'}    
+    ]"/>
+    <div aria-labelledby="Family Feud Form">
+        <lightning:card title="{!v.categoryHeader}">
+            <fieldset class="slds-box slds-theme_default slds-container_large">
+                <div class="slds-form">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                <lightning:input aura:id="1" onfocus="{!c.displayText}" value="{!v.firstText}"/>
+                            </div>
+                            <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                <lightning:input aura:id="6" onfocus="{!c.displayText}" value="{!v.sixthText}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                <lightning:input aura:id="2" onfocus="{!c.displayText}" value="{!v.secondText}"/>
+                            </div>
+                            <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                <lightning:input aura:id="7" onfocus="{!c.displayText}" value="{!v.seventhText}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                <lightning:input aura:id="3" onfocus="{!c.displayText}" value="{!v.thirdText}"/>
+                            </div>
+                            <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                <lightning:input aura:id="8" onfocus="{!c.displayText}" value="{!v.eighthText}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                <lightning:input aura:id="4" onfocus="{!c.displayText}" value="{!v.fourthText}"/>
+                            </div>
+                            <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                <lightning:input aura:id="9" onfocus="{!c.displayText}" value="{!v.ninthText}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                <lightning:input aura:id="5" onfocus="{!c.displayText}" value="{!v.fifthText}"/>
+                            </div>
+
+                            <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                <lightning:input aura:id="10" onfocus="{!c.displayText}" value="{!v.tenthText}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+
+                        <lightning:radioGroup options="{!v.options}" type="button" aura:id="Categories"
+                                              name="Categories" label="Categories" value="{!v.category}"
+                                              onchange="{!c.changeCategory}"/>
+
+                    </div>
+                </div>
+            </fieldset>
+            <!-- /
+            <div class="slds-grid">
+                <div class="slds-size_1-of-2">
+                    <strong>Team One</strong>
+                    <p>TEST</p>
+                    <p>Surabhi Sharma</p>
+                    <p>Karly El-Jalkh</p>
+                    <p>Adam Gold</p>
+                    <p>Emilie Scott</p>
+                    <p>Sapan Khandelwal</p>
+                    <p>Lynne Robichaud</p>
+                    <p>Matthew Schaefer</p>
+                    <p>Nigel Rodrigues</p>
+                    <p>Abhishek Verma</p>
+                    <p>Ezra Hall</p>
+                    <p>Josh Rose</p>
+                </div>
+                <div class="slds-size_1-of-2">
+                    <strong>Team JaiTreal</strong>
+                    <p>Devang Choudhary</p>
+                    <p>Chris Kellie</p>
+                    <p>Amin Bouabdellah</p>
+                    <p>Justino Donovan</p>
+                    <p>Jon Symes</p>
+                    <p>Kelly Crowley</p>
+                    <p>Martin Duguay</p>
+                    <p>Maxim Soukharev</p>
+                    <p>Philippe Bilodeau</p>
+                    <p>Timothy Shaw</p>
+                    <p>Alex Kong</p>
+                    <p>Adam Lowe</p>
+                </div>
+            </div>
+			-->
+        </lightning:card>
+    </div>
+</aura:component>

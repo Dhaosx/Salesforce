@@ -1,0 +1,15 @@
+/**
+ * Created by SimonSalvatore on 2021-10-08.
+ */
+
+.THIS .inline-container {
+    display: inline-flex;
+}
+
+.THIS .padding-right {
+    padding-right: 20px;
+}
+
+.THIS img {
+    object-fit: contain;
+}

@@ -1,0 +1,186 @@
+<!--
+ - Created by SimonSalvatore on 2021-11-29.
+ -->
+
+<aura:component
+        implements="force:hasRecordId,flexipage:availableForAllPageTypes,force:appHostable,lightning:isUrlAddressable,lightning:hasPageReference"
+        access="global">
+    <aura:attribute type="String" name="firstText"/>
+    <aura:attribute type="String" name="secondText"/>
+    <aura:attribute type="String" name="thirdText"/>
+    <aura:attribute type="String" name="fourthText"/>
+    <aura:attribute type="String" name="fifthText"/>
+    <aura:attribute type="String" name="sixthText"/>
+    <aura:attribute type="String" name="seventhText"/>
+    <aura:attribute type="String" name="eighthText"/>
+    <aura:attribute type="String" name="ninthText"/>
+    <aura:attribute type="String" name="tenthText"/>
+    <aura:attribute type="String" name="eleventhText"/>
+    <aura:attribute type="String" name="twelfthText"/>
+    <aura:attribute type="String" name="thirteenthText"/>
+    <aura:attribute type="String" name="fourteenthText"/>
+    <aura:attribute type="String" name="fifteenthText"/>
+    <aura:attribute type="String" name="sixteenthText"/>
+    <aura:attribute type="String" name="seventeenthText"/>
+    <aura:attribute type="String" name="eighteenthText"/>
+    <aura:attribute type="String" name="nineteenthText"/>
+    <aura:attribute type="String" name="twentythText"/>
+    <aura:attribute type="String" name="twentyfirstText"/>
+    <aura:attribute type="String" name="twentySecondText"/>
+    <aura:attribute type="String" name="twentyThirdText"/>
+    <aura:attribute type="String" name="twentyForthText"/>
+    <aura:attribute type="String" name="twentyFifthText"/>
+    <aura:attribute type="String" name="twentySixthText"/>
+    <aura:attribute type="String" name="twentySeventhText"/>
+    <aura:attribute type="String" name="twentyEigthText"/>
+    <aura:attribute type="String" name="twentyNinethText"/>
+    <aura:attribute type="String" name="thirtythText"/>
+    <aura:attribute type="String" name="thirtyFirstText"/>
+    <aura:attribute type="String" name="thirtySecondText"/>
+    <aura:attribute type="String" name="thirtyThirdText"/>
+    <aura:attribute type="String" name="thirtyFourthText"/>
+    <aura:attribute type="String" name="thirtyFifthText"/>
+    <aura:attribute type="String" name="thirtySixthText"/>
+    <aura:attribute type="String" name="thirtySeventhText"/>
+    <aura:attribute type="String" name="thirtyEighthText"/>
+    <aura:attribute type="String" name="thirtyNinethText"/>
+    <aura:attribute type="String" name="fortythText"/>
+    <aura:attribute type="String" name="fortyFirstText"/>
+    <aura:attribute type="String" name="fortySecondText"/>
+    <aura:attribute type="String" name="header"
+                    default="Traction Jeopardy"/>
+
+    <div aria-labelledby="Jeopardy Form">
+        <lightning:card title="{!v.header}">
+            <fieldset class="slds-box slds-theme_default slds-container_large">
+                <div class="slds-form">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <lightning:input label="" value="Movie Club Madness"/>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <lightning:input label="" value="Projects on Demand"/>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <lightning:input label="" value="I demand satisTraction"/>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <lightning:input label="" value="Let's get Trivial"/>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <lightning:input label="" value="Mario Smarts"/>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <lightning:input label="" value="And after all you're my..."/>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <lightning:input label="" value="Pranks and Dranks"/>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <lightning:textarea aura:id="1" placeholder="100" onfocus="{!c.displayText}"
+                                                value="{!v.firstText}"/>
+                            <lightning:textarea aura:id="7" placeholder="100" onfocus="{!c.displayText}"
+                                                value="{!v.seventhText}"/>
+                            <lightning:textarea aura:id="13" placeholder="100" onfocus="{!c.displayText}"
+                                                value="{!v.thirteenthText}"/>
+                            <lightning:textarea aura:id="19" placeholder="100" onfocus="{!c.displayText}"
+                                                value="{!v.nineteenthText}"/>
+                            <lightning:textarea aura:id="25" placeholder="100" onfocus="{!c.displayText}"
+                                                value="{!v.twentyFifthText}"/>
+                            <lightning:textarea aura:id="31" placeholder="100" onfocus="{!c.displayText}"
+                                                value="{!v.thirtyFirstText}"/>
+                            <lightning:textarea aura:id="37" placeholder="100" onfocus="{!c.displayText}"
+                                                value="{!v.thirtySeventhText}"/>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <lightning:textarea aura:id="2" placeholder="200" onfocus="{!c.displayText}"
+                                                value="{!v.secondText}"/>
+                            <lightning:textarea aura:id="8" placeholder="200" onfocus="{!c.displayText}"
+                                                value="{!v.eighthText}"/>
+                            <lightning:textarea aura:id="14" placeholder="200" onfocus="{!c.displayText}"
+                                                value="{!v.fourteenthText}"/>
+                            <lightning:textarea aura:id="20" placeholder="200" onfocus="{!c.displayText}"
+                                                value="{!v.twentythText}"/>
+                            <lightning:textarea aura:id="26" placeholder="200" onfocus="{!c.displayText}"
+                                                value="{!v.twentySixthText}"/>
+                            <lightning:textarea aura:id="32" placeholder="200" onfocus="{!c.displayText}"
+                                                value="{!v.thirtySecondText}"/>
+                            <lightning:textarea aura:id="38" placeholder="200" onfocus="{!c.displayText}"
+                                                value="{!v.thirtyEighthText}"/>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <lightning:textarea aura:id="3" placeholder="300" onfocus="{!c.displayText}"
+                                                value="{!v.thirdText}"/>
+                            <lightning:textarea aura:id="9" placeholder="300" onfocus="{!c.displayText}"
+                                                value="{!v.ninthText}"/>
+                            <lightning:textarea aura:id="15" placeholder="300" onfocus="{!c.displayText}"
+                                                value="{!v.fifteenthText}"/>
+                            <lightning:textarea aura:id="21" placeholder="300" onfocus="{!c.displayText}"
+                                                value="{!v.twentyfirstText}"/>
+                            <lightning:textarea aura:id="27" placeholder="300" onfocus="{!c.displayText}"
+                                                value="{!v.twentySeventhText}"/>
+                            <lightning:textarea aura:id="33" placeholder="300" onfocus="{!c.displayText}"
+                                                value="{!v.thirtyThirdText}"/>
+                            <lightning:textarea aura:id="39" placeholder="300" onfocus="{!c.displayText}"
+                                                value="{!v.thirtyNinethText}"/>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <lightning:textarea aura:id="4" placeholder="400" onfocus="{!c.displayText}"
+                                                value="{!v.fourthText}"/>
+                            <lightning:textarea aura:id="10" placeholder="400" onfocus="{!c.displayText}"
+                                                value="{!v.tenthText}"/>
+                            <lightning:textarea aura:id="16" placeholder="400" onfocus="{!c.displayText}"
+                                                value="{!v.sixteenthText}"/>
+                            <lightning:textarea aura:id="22" placeholder="400" onfocus="{!c.displayText}"
+                                                value="{!v.twentySecondText}"/>
+                            <lightning:textarea aura:id="28" placeholder="400" onfocus="{!c.displayText}"
+                                                value="{!v.twentyEigthText}"/>
+                            <lightning:textarea aura:id="34" placeholder="400" onfocus="{!c.displayText}"
+                                                value="{!v.thirtyFourthText}"/>
+                            <lightning:textarea aura:id="40" placeholder="400" onfocus="{!c.displayText}"
+                                                value="{!v.fortythText}"/>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <lightning:textarea aura:id="5" placeholder="500" onfocus="{!c.displayText}"
+                                                value="{!v.fifthText}"/>
+                            <lightning:textarea aura:id="11" placeholder="500" onfocus="{!c.displayText}"
+                                                value="{!v.eleventhText}"/>
+                            <lightning:textarea aura:id="17" placeholder="500" onfocus="{!c.displayText}"
+                                                value="{!v.seventeenthText}"/>
+                            <lightning:textarea aura:id="23" placeholder="500" onfocus="{!c.displayText}"
+                                                value="{!v.twentyThirdText}"/>
+                            <lightning:textarea aura:id="29" placeholder="500" onfocus="{!c.displayText}"
+                                                value="{!v.twentyNinethText}"/>
+                            <lightning:textarea aura:id="35" placeholder="500" onfocus="{!c.displayText}"
+                                                value="{!v.thirtyFifthText}"/>
+                            <lightning:textarea aura:id="41" placeholder="500" onfocus="{!c.displayText}"
+                                                value="{!v.fortyFirstText}"/>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <lightning:textarea aura:id="6" placeholder="1000" onfocus="{!c.displayText}"
+                                                value="{!v.sixthText}"/>
+                            <lightning:textarea aura:id="12" placeholder="1000" onfocus="{!c.displayText}"
+                                                value="{!v.twelfthText}"/>
+                            <lightning:textarea aura:id="18" placeholder="1000" onfocus="{!c.displayText}"
+                                                value="{!v.eighteenthText}"/>
+                            <lightning:textarea aura:id="24" placeholder="1000" onfocus="{!c.displayText}"
+                                                value="{!v.twentyForthText}"/>
+                            <lightning:textarea aura:id="30" placeholder="1000" onfocus="{!c.displayText}"
+                                                value="{!v.thirtythText}"/>
+                            <lightning:textarea aura:id="36" placeholder="1000" onfocus="{!c.displayText}"
+                                                value="{!v.thirtySixthText}"/>
+                            <lightning:textarea aura:id="42" placeholder="1000" onfocus="{!c.displayText}"
+                                                value="{!v.fortySecondText}"/>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </lightning:card>
+    </div>
+</aura:component>
