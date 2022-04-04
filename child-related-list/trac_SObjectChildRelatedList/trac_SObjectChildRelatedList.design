@@ -1,0 +1,14 @@
+<!--
+ - Created by ssalvatore on 2/13/2020.
+ -->
+
+<design:component>
+	<design:attribute name="displayName" label="Display Name" />
+	<design:attribute name="objectName" label="Related Object Name" />
+	<design:attribute name="queryFilter" label="Query Filter" />
+	<design:attribute name="iconName" label="Icon Name" />
+	<design:attribute name="fieldList" label="Fields" />
+	<design:attribute name="fieldNames" label="Field Display Names" />
+	<design:attribute name="searchKey" label="Fields to Search on" />
+	<design:attribute name="secondSearch" label="Secondary Search field" />
+</design:component>
