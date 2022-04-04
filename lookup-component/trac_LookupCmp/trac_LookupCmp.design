@@ -1,0 +1,9 @@
+<design:component>
+    <design:attribute name="recordId" label="RecordId"/>
+    <design:attribute name="objectAPIName" label="Object Name"/>
+    <design:attribute name="recordType" label="Record Type"/>
+    <design:attribute name="IconName" label="Icon Name"/>
+    <design:attribute name="label" label="Label Name"/>
+    <design:attribute name="isRequired" label="Required" />
+    <design:attribute name="description" label="Object Description field" />
+</design:component>
