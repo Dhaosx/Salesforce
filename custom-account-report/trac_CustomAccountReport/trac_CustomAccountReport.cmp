@@ -1,0 +1,365 @@
+<aura:component description="trac_CustomAccountReport"
+                implements="force:hasRecordId,flexipage:availableForAllPageTypes,force:appHostable,lightning:isUrlAddressable,lightning:hasPageReference"
+                access="global" controller="trac_CustomAccountReportController">
+
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="aggregateResults" type="Object"/>
+    <aura:attribute name="AccountId" type="String"/>
+    <aura:attribute name="ProductId" type="String"/>
+    <aura:attribute name="months" type="String[]"
+                    default="October,November,December,January,February,March,April,May,June,July,August,September"/>
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }"/>
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.doInit}"/>
+
+    <table aria-multiselectable="true"
+           class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols" role="grid">
+        <thead>
+        <tr class="slds-line-height_reset">
+            <th aria-label="Products" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                    <span class="slds-assistive-text">Sort by: </span>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                        <span class="slds-truncate" title="Name">Products</span>
+                        <span class="slds-icon_container slds-icon-utility-arrowdown"></span>
+                    </div>
+                </a>
+                <div class="slds-resizable">
+                    <input type="range" aria-label="Name column width" class="slds-resizable__input slds-assistive-text"
+                           id="cell-resize-handle-540" max="1000" min="20" tabindex="-1"/>
+                    <span class="slds-resizable__handle">
+                        <span class="slds-resizable__divider"></span>
+                    </span>
+                </div>
+            </th>
+            <th aria-label="Month" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                    <span class="slds-assistive-text">Sort by: </span>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                        <span class="slds-truncate" title="Account Name">Month</span>
+                        <span class="slds-icon_container slds-icon-utility-arrowdown"></span>
+                    </div>
+                </a>
+                <div class="slds-resizable">
+                    <input type="range" aria-label="Account Name column width"
+                           class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-541" max="1000"
+                           min="20" tabindex="-1"/>
+                    <span class="slds-resizable__handle">
+                        <span class="slds-resizable__divider"></span>
+                    </span>
+                </div>
+            </th>
+            <th aria-label="Sales$2019" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                    <span class="slds-assistive-text">Sort by: </span>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                        <span class="slds-truncate" title="Close Date">Sales $ 2018 (Last FY)</span>
+                        <span class="slds-icon_container slds-icon-utility-arrowdown"></span>
+                    </div>
+                </a>
+                <div class="slds-resizable">
+                    <input type="range" aria-label="Close Date column width"
+                           class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-542" max="1000"
+                           min="20" tabindex="-1"/>
+                    <span class="slds-resizable__handle">
+                        <span class="slds-resizable__divider"></span>
+                    </span>
+                </div>
+            </th>
+            <th aria-label="Sales$2018" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                    <span class="slds-assistive-text">Sort by: </span>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                        <span class="slds-truncate" title="Amount">Sales $ 2019 (Current FY)</span>
+                        <span class="slds-icon_container slds-icon-utility-arrowdown"></span>
+                    </div>
+                </a>
+                <div class="slds-resizable">
+                    <input type="range" aria-label="Stage column width"
+                           class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-543" max="1000"
+                           min="20" tabindex="-1"/>
+                    <span class="slds-resizable__handle">
+                        <span class="slds-resizable__divider"></span>
+                    </span>
+                </div>
+            </th>
+            <th aria-label="Margin$2019" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                    <span class="slds-assistive-text">Sort by: </span>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                        <span class="slds-truncate" title="Stage">Margin $ 2018 (Last FY)</span>
+                        <span class="slds-icon_container slds-icon-utility-arrowdown"></span>
+                    </div>
+                </a>
+                <div class="slds-resizable">
+                    <input type="range" aria-label="Confidence column width"
+                           class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-544" max="1000"
+                           min="20" tabindex="-1"/>
+                    <span class="slds-resizable__handle">
+                        <span class="slds-resizable__divider"></span>
+                    </span>
+                </div>
+            </th>
+            <th aria-label="Margin$2018" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                    <span class="slds-assistive-text">Sort by: </span>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                        <span class="slds-truncate" title="Contact">Margin $ 2019 (Current FY)</span>
+                        <span class="slds-icon_container slds-icon-utility-arrowdown"></span>
+                    </div>
+                </a>
+                <div class="slds-resizable">
+                    <input type="range" aria-label="Amount column width"
+                           class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-545" max="1000"
+                           min="20" tabindex="-1"/>
+                    <span class="slds-resizable__handle">
+                        <span class="slds-resizable__divider"></span>
+                    </span>
+                </div>
+            </th>
+            <th aria-label="Quantity2019" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                    <span class="slds-assistive-text">Sort by: </span>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                        <span class="slds-truncate" title="Confidence">Quantity 2018 (Last FY)</span>
+                        <span class="slds-icon_container slds-icon-utility-arrowdown"></span>
+                    </div>
+                </a>
+                <div class="slds-resizable">
+                    <input type="range" aria-label="Contact column width"
+                           class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-546" max="1000"
+                           min="20" tabindex="-1"/>
+                    <span class="slds-resizable__handle">
+                        <span class="slds-resizable__divider"></span>
+                    </span>
+                </div>
+            </th>
+            <th aria-label="Quantity2018" aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                    <span class="slds-assistive-text">Sort by: </span>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                        <span class="slds-truncate" title="Name">Quantity 2019 (Current FY)</span>
+                        <span class="slds-icon_container slds-icon-utility-arrowdown"></span>
+                    </div>
+                </a>
+                <div class="slds-resizable">
+                    <input type="range" aria-label="Name column width" class="slds-resizable__input slds-assistive-text"
+                           id="cell-resize-handle-540" max="1000" min="20" tabindex="-1"/>
+                    <span class="slds-resizable__handle">
+                        <span class="slds-resizable__divider"></span>
+                    </span>
+                </div>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <aura:iteration items="{!v.aggregateResults}" var="result" indexVar="index">
+            <tr aria-selected="false" class="slds-hint-parent">
+                <th scope="row" tabindex="0">
+                    <div class="slds-cell-wrap" title="Product">
+                        <a href="{!'/one/one.app?#/sObject/'+ result.Value[0].Value[1] + '/view'}"
+                           tabindex="-1">
+                            {!result.Value[0].Value[0]}<br/>
+                            <aura:if isTrue="{!result.Value[0].Value.length > 2}">
+                                {!result.Value[0].Value[40]}
+                                <aura:set attribute="else">
+                                    {!result.Value[0].Value[2]}
+                                </aura:set>
+                            </aura:if>
+                        </a>
+                    </div>
+                    <div class="slds-truncate">&nbsp;</div>
+                    <div class="slds-truncate">&nbsp;</div>
+                    <div class="slds-truncate">&nbsp;</div>
+                    <div class="slds-truncate">&nbsp;</div>
+                    <div class="slds-truncate">&nbsp;</div>
+                    <div class="slds-truncate">&nbsp;</div>
+                    <div class="slds-truncate">&nbsp;</div>
+                    <div class="slds-truncate">&nbsp;</div>
+                    <div class="slds-truncate">&nbsp;</div>
+                    <div class="slds-truncate">&nbsp;</div>
+                    <div class="slds-truncate">&nbsp;</div>
+                </th>
+                <td role="gridcell">
+                    <aura:iteration items="{!v.months}" var="month">
+                        <div class="slds-truncate" title="Month">{!month}</div>
+                    </aura:iteration>
+                </td>
+                <aura:if isTrue="{!result.Value[0].Value[39]}">
+                    <td role="gridcell">
+                        <div class="slds-truncate" title="OctoberLFYSales">{!result.Value[1].Value[3]}</div>
+                        <div class="slds-truncate" title="NovemberLFYSales">{!result.Value[1].Value[4]}</div>
+                        <div class="slds-truncate" title="DecemberLFYSales">{!result.Value[1].Value[5]}</div>
+                        <div class="slds-truncate" title="JanuaryLFYSales">{!result.Value[1].Value[6]}</div>
+                        <div class="slds-truncate" title="FebruaryLFYSales">{!result.Value[1].Value[7]}</div>
+                        <div class="slds-truncate" title="MarchLFYSales">{!result.Value[1].Value[8]}</div>
+                        <div class="slds-truncate" title="AprilLFYSales">{!result.Value[1].Value[9]}</div>
+                        <div class="slds-truncate" title="MayLFYSales">{!result.Value[1].Value[10]}</div>
+                        <div class="slds-truncate" title="JuneLFYSales">{!result.Value[1].Value[11]}</div>
+                        <div class="slds-truncate" title="JulyLFYSales">{!result.Value[1].Value[12]}</div>
+                        <div class="slds-truncate" title="AugustLFYSales">{!result.Value[1].Value[13]}</div>
+                        <div class="slds-truncate" title="SeptemberLFYSales">{!result.Value[1].Value[14]}</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate" title="OctoberCFYSales">{!result.Value[0].Value[3]}</div>
+                        <div class="slds-truncate" title="NovemberCFYSales">{!result.Value[0].Value[4]}</div>
+                        <div class="slds-truncate" title="DecemberCFYSales">{!result.Value[0].Value[5]}</div>
+                        <div class="slds-truncate" title="JanuaryCFYSales">{!result.Value[0].Value[6]}</div>
+                        <div class="slds-truncate" title="FebruaryCFYSales">{!result.Value[0].Value[7]}</div>
+                        <div class="slds-truncate" title="MarchCFYSales">{!result.Value[0].Value[8]}</div>
+                        <div class="slds-truncate" title="AprilCFYSales">{!result.Value[0].Value[9]}</div>
+                        <div class="slds-truncate" title="MayCFYSales">{!result.Value[0].Value[10]}</div>
+                        <div class="slds-truncate" title="JuneCFYSales">{!result.Value[0].Value[11]}</div>
+                        <div class="slds-truncate" title="JulyCFYSales">{!result.Value[0].Value[12]}</div>
+                        <div class="slds-truncate" title="AugustCFYSales">{!result.Value[0].Value[13]}</div>
+                        <div class="slds-truncate" title="SeptemberCFYSales">{!result.Value[0].Value[14]}</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate" title="OctoberLFYMargin">{!result.Value[1].Value[15]}</div>
+                        <div class="slds-truncate" title="NovemberLFYMargin">{!result.Value[1].Value[16]}</div>
+                        <div class="slds-truncate" title="DecemberLFYMargin">{!result.Value[1].Value[17]}</div>
+                        <div class="slds-truncate" title="JanuaryLFYMargin">{!result.Value[1].Value[18]}</div>
+                        <div class="slds-truncate" title="FebruaryLFYMargin">{!result.Value[1].Value[19]}</div>
+                        <div class="slds-truncate" title="MarchLFMargin">{!result.Value[1].Value[20]}</div>
+                        <div class="slds-truncate" title="AprilLFYMargin">{!result.Value[1].Value[21]}</div>
+                        <div class="slds-truncate" title="MayLFYMargin">{!result.Value[1].Value[22]}</div>
+                        <div class="slds-truncate" title="JuneLFYMargin">{!result.Value[1].Value[23]}</div>
+                        <div class="slds-truncate" title="JulyLFYMargin">{!result.Value[1].Value[24]}</div>
+                        <div class="slds-truncate" title="AugustLFYMargin">{!result.Value[1].Value[25]}</div>
+                        <div class="slds-truncate" title="SeptemberLFYMargin">{!result.Value[1].Value[26]}</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate" title="OctoberCFYMargin">{!result.Value[0].Value[15]}</div>
+                        <div class="slds-truncate" title="NovemberCFYMargin">{!result.Value[0].Value[16]}</div>
+                        <div class="slds-truncate" title="DecemberCFYMargin">{!result.Value[0].Value[17]}</div>
+                        <div class="slds-truncate" title="JanuaryCFYMargin">{!result.Value[0].Value[18]}</div>
+                        <div class="slds-truncate" title="FebruaryCFYMargin">{!result.Value[0].Value[19]}</div>
+                        <div class="slds-truncate" title="MarchCFMargin">{!result.Value[0].Value[20]}</div>
+                        <div class="slds-truncate" title="AprilCFYMargin">{!result.Value[0].Value[21]}</div>
+                        <div class="slds-truncate" title="MayCFYMargin">{!result.Value[0].Value[22]}</div>
+                        <div class="slds-truncate" title="JuneCFYMargin">{!result.Value[0].Value[23]}</div>
+                        <div class="slds-truncate" title="JulyCFYMargin">{!result.Value[0].Value[24]}</div>
+                        <div class="slds-truncate" title="AugustCFYMargin">{!result.Value[0].Value[25]}</div>
+                        <div class="slds-truncate" title="SeptemberCFYMargin">{!result.Value[0].Value[26]}</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate" title="OctoberLFYQuantity">{!result.Value[1].Value[27]}</div>
+                        <div class="slds-truncate" title="NovemberLFYQuantity">{!result.Value[1].Value[28]}</div>
+                        <div class="slds-truncate" title="DecemberLFYQuantity">{!result.Value[1].Value[29]}</div>
+                        <div class="slds-truncate" title="JanuaryLFYQuantity">{!result.Value[1].Value[30]}</div>
+                        <div class="slds-truncate" title="FebruaryLFYQuantity">{!result.Value[1].Value[31]}</div>
+                        <div class="slds-truncate" title="MarchLFYQuantity">{!result.Value[1].Value[32]}</div>
+                        <div class="slds-truncate" title="AprilLFYQuantity">{!result.Value[1].Value[33]}</div>
+                        <div class="slds-truncate" title="MayLFYQuantity">{!result.Value[1].Value[34]}</div>
+                        <div class="slds-truncate" title="JuneLFYQuantity">{!result.Value[1].Value[35]}</div>
+                        <div class="slds-truncate" title="JulyLFYQuantity">{!result.Value[1].Value[36]}</div>
+                        <div class="slds-truncate" title="AugustLFYQuantity">{!result.Value[1].Value[37]}</div>
+                        <div class="slds-truncate" title="SeptemberLFYQuantity">{!result.Value[1].Value[38]}</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate" title="OctoberCFYQuantity">{!result.Value[0].Value[27]}</div>
+                        <div class="slds-truncate" title="NovemberCFYQuantity">{!result.Value[0].Value[28]}</div>
+                        <div class="slds-truncate" title="DecemberCFYQuantity">{!result.Value[0].Value[29]}</div>
+                        <div class="slds-truncate" title="JanuaryCFYQuantity">{!result.Value[0].Value[30]}</div>
+                        <div class="slds-truncate" title="FebruaryCFYQuantity">{!result.Value[0].Value[31]}</div>
+                        <div class="slds-truncate" title="MarchCFYQuantity">{!result.Value[0].Value[32]}</div>
+                        <div class="slds-truncate" title="AprilCFYQuantity">{!result.Value[0].Value[33]}</div>
+                        <div class="slds-truncate" title="MayCFYQuantity">{!result.Value[0].Value[34]}</div>
+                        <div class="slds-truncate" title="JuneCFYQuantity">{!result.Value[0].Value[35]}</div>
+                        <div class="slds-truncate" title="JulyCFYQuantity">{!result.Value[0].Value[36]}</div>
+                        <div class="slds-truncate" title="AugustCFYQuantity">{!result.Value[0].Value[37]}</div>
+                        <div class="slds-truncate" title="SeptemberCFYQuantity">{!result.Value[0].Value[38]}</div>
+                    </td>
+                    <aura:set attribute="else">
+                        <td role="gridcell">
+                            <div class="slds-truncate" title="OctoberLFYSales">{!result.Value[0].Value[3]}</div>
+                            <div class="slds-truncate" title="NovemberLFYSales">{!result.Value[0].Value[4]}</div>
+                            <div class="slds-truncate" title="DecemberLFYSales">{!result.Value[0].Value[5]}</div>
+                            <div class="slds-truncate" title="JanuaryLFYSales">{!result.Value[0].Value[6]}</div>
+                            <div class="slds-truncate" title="FebruaryLFYSales">{!result.Value[0].Value[7]}</div>
+                            <div class="slds-truncate" title="MarchLFYSales">{!result.Value[0].Value[8]}</div>
+                            <div class="slds-truncate" title="AprilLFYSales">{!result.Value[0].Value[9]}</div>
+                            <div class="slds-truncate" title="MayLFYSales">{!result.Value[0].Value[10]}</div>
+                            <div class="slds-truncate" title="JuneLFYSales">{!result.Value[0].Value[11]}</div>
+                            <div class="slds-truncate" title="JulyLFYSales">{!result.Value[0].Value[12]}</div>
+                            <div class="slds-truncate" title="AugustLFYSales">{!result.Value[0].Value[13]}</div>
+                            <div class="slds-truncate" title="SeptemberLFYSales">{!result.Value[0].Value[14]}</div>
+                        </td>
+                        <td role="gridcell">
+                            <div class="slds-truncate" title="OctoberCFYSales">{!result.Value[1].Value[3]}</div>
+                            <div class="slds-truncate" title="NovemberCFYSales">{!result.Value[1].Value[4]}</div>
+                            <div class="slds-truncate" title="DecemberCFYSales">{!result.Value[1].Value[5]}</div>
+                            <div class="slds-truncate" title="JanuaryCFYSales">{!result.Value[1].Value[6]}</div>
+                            <div class="slds-truncate" title="FebruaryCFYSales">{!result.Value[1].Value[7]}</div>
+                            <div class="slds-truncate" title="MarchCFYSales">{!result.Value[1].Value[8]}</div>
+                            <div class="slds-truncate" title="AprilCFYSales">{!result.Value[1].Value[9]}</div>
+                            <div class="slds-truncate" title="MayCFYSales">{!result.Value[1].Value[10]}</div>
+                            <div class="slds-truncate" title="JuneCFYSales">{!result.Value[1].Value[11]}</div>
+                            <div class="slds-truncate" title="JulyCFYSales">{!result.Value[1].Value[12]}</div>
+                            <div class="slds-truncate" title="AugustCFYSales">{!result.Value[1].Value[13]}</div>
+                            <div class="slds-truncate" title="SeptemberCFYSales">{!result.Value[1].Value[14]}</div>
+                        </td>
+                        <td role="gridcell">
+                            <div class="slds-truncate" title="OctoberLFYMargin">{!result.Value[0].Value[15]}</div>
+                            <div class="slds-truncate" title="NovemberLFYMargin">{!result.Value[0].Value[16]}</div>
+                            <div class="slds-truncate" title="DecemberLFYMargin">{!result.Value[0].Value[17]}</div>
+                            <div class="slds-truncate" title="JanuaryLFYMargin">{!result.Value[0].Value[18]}</div>
+                            <div class="slds-truncate" title="FebruaryLFYMargin">{!result.Value[0].Value[19]}</div>
+                            <div class="slds-truncate" title="MarchLFMargin">{!result.Value[0].Value[20]}</div>
+                            <div class="slds-truncate" title="AprilLFYMargin">{!result.Value[0].Value[21]}</div>
+                            <div class="slds-truncate" title="MayLFYMargin">{!result.Value[0].Value[22]}</div>
+                            <div class="slds-truncate" title="JuneLFYMargin">{!result.Value[0].Value[23]}</div>
+                            <div class="slds-truncate" title="JulyLFYMargin">{!result.Value[0].Value[24]}</div>
+                            <div class="slds-truncate" title="AugustLFYMargin">{!result.Value[0].Value[25]}</div>
+                            <div class="slds-truncate" title="SeptemberLFYMargin">{!result.Value[0].Value[26]}</div>
+                        </td>
+                        <td role="gridcell">
+                            <div class="slds-truncate" title="OctoberCFYMargin">{!result.Value[1].Value[15]}</div>
+                            <div class="slds-truncate" title="NovemberCFYMargin">{!result.Value[1].Value[16]}</div>
+                            <div class="slds-truncate" title="DecemberCFYMargin">{!result.Value[1].Value[17]}</div>
+                            <div class="slds-truncate" title="JanuaryCFYMargin">{!result.Value[1].Value[18]}</div>
+                            <div class="slds-truncate" title="FebruaryCFYMargin">{!result.Value[1].Value[19]}</div>
+                            <div class="slds-truncate" title="MarchCFMargin">{!result.Value[1].Value[20]}</div>
+                            <div class="slds-truncate" title="AprilCFYMargin">{!result.Value[1].Value[21]}</div>
+                            <div class="slds-truncate" title="MayCFYMargin">{!result.Value[1].Value[22]}</div>
+                            <div class="slds-truncate" title="JuneCFYMargin">{!result.Value[1].Value[23]}</div>
+                            <div class="slds-truncate" title="JulyCFYMargin">{!result.Value[1].Value[24]}</div>
+                            <div class="slds-truncate" title="AugustCFYMargin">{!result.Value[1].Value[25]}</div>
+                            <div class="slds-truncate" title="SeptemberCFYMargin">{!result.Value[1].Value[26]}</div>
+                        </td>
+                        <td role="gridcell">
+                            <div class="slds-truncate" title="OctoberLFYQuantity">{!result.Value[0].Value[27]}</div>
+                            <div class="slds-truncate" title="NovemberLFYQuantity">{!result.Value[0].Value[28]}</div>
+                            <div class="slds-truncate" title="DecemberLFYQuantity">{!result.Value[0].Value[29]}</div>
+                            <div class="slds-truncate" title="JanuaryLFYQuantity">{!result.Value[0].Value[30]}</div>
+                            <div class="slds-truncate" title="FebruaryLFYQuantity">{!result.Value[0].Value[31]}</div>
+                            <div class="slds-truncate" title="MarchLFYQuantity">{!result.Value[0].Value[32]}</div>
+                            <div class="slds-truncate" title="AprilLFYQuantity">{!result.Value[0].Value[33]}</div>
+                            <div class="slds-truncate" title="MayLFYQuantity">{!result.Value[0].Value[34]}</div>
+                            <div class="slds-truncate" title="JuneLFYQuantity">{!result.Value[0].Value[35]}</div>
+                            <div class="slds-truncate" title="JulyLFYQuantity">{!result.Value[0].Value[36]}</div>
+                            <div class="slds-truncate" title="AugustLFYQuantity">{!result.Value[0].Value[37]}</div>
+                            <div class="slds-truncate" title="SeptemberLFYQuantity">{!result.Value[0].Value[38]}</div>
+                        </td>
+                        <td role="gridcell">
+                            <div class="slds-truncate" title="OctoberCFYQuantity">{!result.Value[1].Value[27]}</div>
+                            <div class="slds-truncate" title="NovemberCFYQuantity">{!result.Value[1].Value[28]}</div>
+                            <div class="slds-truncate" title="DecemberCFYQuantity">{!result.Value[1].Value[29]}</div>
+                            <div class="slds-truncate" title="JanuaryCFYQuantity">{!result.Value[1].Value[30]}</div>
+                            <div class="slds-truncate" title="FebruaryCFYQuantity">{!result.Value[1].Value[31]}</div>
+                            <div class="slds-truncate" title="MarchCFYQuantity">{!result.Value[1].Value[32]}</div>
+                            <div class="slds-truncate" title="AprilCFYQuantity">{!result.Value[1].Value[33]}</div>
+                            <div class="slds-truncate" title="MayCFYQuantity">{!result.Value[1].Value[34]}</div>
+                            <div class="slds-truncate" title="JuneCFYQuantity">{!result.Value[1].Value[35]}</div>
+                            <div class="slds-truncate" title="JulyCFYQuantity">{!result.Value[1].Value[36]}</div>
+                            <div class="slds-truncate" title="AugustCFYQuantity">{!result.Value[1].Value[37]}</div>
+                            <div class="slds-truncate" title="SeptemberCFYQuantity">{!result.Value[1].Value[38]}</div>
+                        </td>
+                    </aura:set>
+                </aura:if>
+            </tr>
+        </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>
