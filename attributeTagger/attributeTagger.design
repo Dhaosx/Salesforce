@@ -1,6 +1,0 @@
-<design:component label="Attribute Selector">
-    <sfdc:objects >
-        <sfdc:object >Account</sfdc:object>
-        <sfdc:object >Contact</sfdc:object>
-    </sfdc:objects>
-</design:component>
