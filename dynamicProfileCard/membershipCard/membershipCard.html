@@ -1,0 +1,30 @@
+<!--
+ - Created by simon.salvatore on 7/6/2022.
+ -->
+
+<!-- Membership Card -->
+<template>
+    <lightning-card title="Membership Card" class="container">
+        <div class="slds-grid">
+            <div class="slds-col slds-size_1-of-3">
+                <div ondragover={onDragOver} ondrop={onDrop}>
+                    <img src='{pictureSrc}' alt="Member Image" class="roundImage"/>
+                    <p>{message}</p>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+                <template if:true={contacts}>
+                    <strong>{name}</strong>
+                    <template for:each={contacts} for:item="contact">
+                        <p key={contact.key}>{contact.key}</p>
+                        <p key={contact.key}>{contact.value}</p>
+                        <br key={contact.key} />
+                    </template>
+                </template>
+                <template if:true={error}>
+                    <p>Error</p>
+                </template>
+            </div>
+        </div>
+    </lightning-card>
+</template>

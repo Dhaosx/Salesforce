@@ -1,0 +1,19 @@
+/**
+ * Created by simon.salvatore on 7/6/2022.
+ */
+.container{
+    text-align: center;
+}
+.p {
+    font-size: 14px;
+    color: #CCCCCC;
+    margin: 4px 0;
+}
+.roundImage {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+
+    object-fit: cover;
+}
